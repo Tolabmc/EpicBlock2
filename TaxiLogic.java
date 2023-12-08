@@ -33,7 +33,7 @@ import java.util.Scanner;
         public Location getVehicleLocation(){
             return vehicleLocation;
         }
-        private Location vehicleLocation;
+       // private Location vehicleLocation;
         public void requestARide(String typeOfVehicle){
 
 

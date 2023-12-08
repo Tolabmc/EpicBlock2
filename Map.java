@@ -1,7 +1,7 @@
 public class Map {
 
-    private static final int MAP_SIZE = 10;
-    private static final char EMPTY = '.';
+    public static final int MAP_SIZE = 10;
+    public static final char EMPTY = '.';
     public static final char Vehicle = 'V';
     public static final char Person = 'P';
 
