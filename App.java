@@ -34,7 +34,7 @@ public class App {
             System.out.println(key);
         }
         */
-        Random rand = new Random();
+        // Random num = new Random(Integer);
 
 /*
         for (Vehicle vehicle : listOfVehicles.values()) {
@@ -47,36 +47,48 @@ public class App {
 //map.placeOnMap(taxi.getVehicleLocation().getX(), taxi.getVehicleLocation().getY(), 'V');
         // Location point = listOfVehicles.getFirst();
 
-        Location Newpoint = new Location(taxi.getVehicleLocation().getX(),taxi.getVehicleLocation().getY());
-        Direction direction = Direction.RIGHT;
+
+        Location Newpoint = new Location(taxi.getVehicleLocation().getX(), taxi.getVehicleLocation().getY());
+
 
         //  for (Vehicle vehicle : listOfVehicles.values()) {
         //System.out.println(vehicle.getIcon());
         //map.placeOnMap(2, 4, vehicle.getIcon());
 
         // }
-        for (int i=0; i <= 7; i++) {
-            // while (true) {
+       /* for (int i = 0; i <= 5; i++) {
             map.printMap();
             System.out.println();
-            /*
-            if (taxi.getVehicleLocation().getX() >= 10)  {
-               direction = Direction.LEFT;
-            }
-            if (taxi.getVehicleLocation().getX() <= 0)  {
-                direction = Direction.RIGHT;
-            }
-            if (taxi.getVehicleLocation().getY() >= 10)  {
-                direction = Direction.UP;
-            }
-            if (taxi.getVehicleLocation().getY() <= 0)  {
-                direction = Direction.DOWN;
-            }
-             */
+            Direction direction = Direction.RANDOM;
+            taxi.moveVehicle(direction, map);
 
+
+
+
+            //taxi.getVehicleLocation().getX() >= 0 && taxi.getVehicleLocation().getX() < map.MAP_SIZE && taxi.getVehicleLocation().getY() >= 0 && taxi.getVehicleLocation().getY() < map.MAP_SIZE
+        }
+
+        */
+        Random rand = new Random();
+        for (int i = 0; i <= 50; i++) {
+            map.printMap();
+            System.out.println();
+
+            // Perform a random move
+            Direction direction = Direction.RANDOM;
+            taxi.moveVehicle(direction, map);
+
+            // Wait for a short time (simulating some action)
+            try {
+                Thread.sleep(1000); // Adjust the sleep time as needed
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // Choose a new random direction for the next move
+            direction = Direction.values()[rand.nextInt(Direction.values().length)];
             taxi.moveVehicle(direction, map);
         }
-
-            }
-        }
+    }
+}
 

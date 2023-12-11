@@ -26,8 +26,11 @@ import java.util.Scanner;
 
             }
         }
+
         public boolean isValidMove(int x, int y, Map map) {
-            return x >= 0 && x < map.MAP_SIZE && y >= 0 && y < map.MAP_SIZE;
+           return x >= 0 && x < map.MAP_SIZE && y >= 0 && y < map.MAP_SIZE;
+
+
         }
 
         public Location getVehicleLocation(){
