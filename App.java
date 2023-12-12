@@ -1,5 +1,5 @@
 import java.util.HashMap;
-import java.util.LinkedList;
+//import java.util.LinkedList;
 import java.util.Random;
 
 public class App {
@@ -47,7 +47,7 @@ public class App {
 //map.placeOnMap(taxi.getVehicleLocation().getX(), taxi.getVehicleLocation().getY(), 'V');
         // Location point = listOfVehicles.getFirst();
 
-        Location Newpoint = new Location(taxi.getVehicleLocation().getX(),taxi.getVehicleLocation().getY());
+        Location NewPoint = new Location(taxi.getVehicleLocation().getX(),taxi.getVehicleLocation().getY());
         Direction direction = Direction.RIGHT;
 
         //  for (Vehicle vehicle : listOfVehicles.values()) {
