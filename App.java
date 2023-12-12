@@ -14,7 +14,6 @@ public class App {
 
     }
 
-
     public static void main(String[] args) {
 
         HashMap<String, Vehicle> listOfVehicles = new HashMap<String, Vehicle>();
