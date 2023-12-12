@@ -6,7 +6,7 @@ public class Person {
     private int XcoOrd;
     private int YcoOrd;
 
-    public Person(String name) {
+    public Person(String name, char icon, int XcoOrd, int YcoOrd) {
         this.name = name;
         this.icon = icon;
         this.XcoOrd = XcoOrd;

@@ -24,9 +24,10 @@ public class App {
         listOfVehicles.put("14-E-1234", new Vehicle("14-E-1234", "XL", "Volvo"));
 
         Map map = new Map();
-        Person person = new Person("Jim");
+        Person person = new Person("Jim", 'P',4, 5);
         map.initializeMap();
-        map.placeOnMap(4, 5, person.getIcon());
+
+        map.placeOnMap(person.getXcoOrd(),person.getYcoOrd(), person.getIcon());
 
         /* To get the registrations of all cars (keys)
         for (String key : listOfVehicles.keySet()) {
