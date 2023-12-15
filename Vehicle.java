@@ -8,6 +8,7 @@ public class Vehicle {
     vehicleBrand = Volkswagen/Merc/
 
        */
+
     private float driverRating;
     private String vehicleSize;
     private String vehicleBrand;
