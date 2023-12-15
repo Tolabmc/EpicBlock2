@@ -6,7 +6,7 @@ import java.util.Scanner;
 
         Location vehicleLocation = new Location(2, 4);
 
-
+/*
         public void moveVehicle(Direction direction, Map map) {
 
             int newX = (vehicleLocation.getX() + direction.getX());
@@ -26,6 +26,8 @@ import java.util.Scanner;
 
             }
         }
+        */
+
         public boolean isValidMove(int x, int y, Map map) {
             return x >= 0 && x < map.MAP_SIZE && y >= 0 && y < map.MAP_SIZE;
         }
