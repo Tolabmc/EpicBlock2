@@ -1,4 +1,6 @@
+
 interface List<T> {
+
 
 	public boolean isEmpty(); 
 
@@ -125,6 +127,24 @@ class LinkedList<T> implements List<T> {
 
 	}
 }
+/*
+@Override
+public void add(String item)
+{
+	if(current != null)
+	{
+		Node newNode = new Node(item, current.next);
+		current.next = newNode;
+		current = newNode;
+	}
+	else
+	{
+		head = tail = new Node(item, null);
+		curr = head;
+	}
+}
+
+ */
 public class Driver {
 
 	public static <T> void printList(List<T> list) {
@@ -139,7 +159,7 @@ public class Driver {
 		}
 		System.out.println();
 	}
-
+}
 /*
 	public static void main(String[] args) {
 		List<String> l = new LinkedList<>();
@@ -153,6 +173,7 @@ public class Driver {
 
 		//printList(l);
 	}
-
- */
 }
+ */
+
+

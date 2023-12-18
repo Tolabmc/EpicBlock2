@@ -1,9 +1,9 @@
 import java.util.HashMap;
 //import java.util.LinkedList;
-import java.util.LinkedList;
+//import java.util.LinkedList;
 import java.util.Random;
 
-public class App {
+public class App extends LinkedList<Location> {
 
 
     private static LinkedList<Location> car;
@@ -13,31 +13,41 @@ public class App {
     public App() {
 
 
-
     }
 
     public static void main(String[] args) {
 
+        LinkedList<Taxi> taxis = new LinkedList<>();
+        //  LinkedList<Taxi> taxiList = new LinkedList<>();
+
 
         HashMap<String, Vehicle> listOfVehicles = new HashMap<String, Vehicle>();
         TaxiLogic taxi = new TaxiLogic();
-        LinkedList<Taxi> taxis = new LinkedList<>();
 
+        taxis.insert(new Taxi(3, 5));
+        taxis.insert(new Taxi(6, 2));
+//        taxis.insert(new Taxi(0, 0));
+        taxis.insert(new Taxi(1, 2));
+//        taxis.insert(new Taxi(7, 9));
+//        taxis.insert(new Taxi(5, 1));
+
+
+/*
         taxis.add(new Taxi(3, 5));
         taxis.add(new Taxi(6, 2));
-
+*/
 
         listOfVehicles.put("14-D-1262", new Vehicle("14-D-1262", "Regular", "BMW"));
         listOfVehicles.put("14-E-1234", new Vehicle("14-E-1234", "XL", "Volvo"));
 
-        char[][] map = new char[Map.MAP_SIZE][Map.MAP_SIZE];
-        Map map1 = new Map();
+        char[][] mapArray = new char[Map.MAP_SIZE][Map.MAP_SIZE];
+
+        Map map = new Map();
         //map1.placePerson();
 
-
-      Customer customer = new Customer("Jim", 'P', 4, 5);
-        map1.placeOnMap(customer.getXcoOrd(),customer.getYcoOrd(), customer.getIcon());
-
+        Customer customer = new Customer("Jim", 'C', 4, 5);
+//        map1.placeOnMap(customer.getX(),customer.getY(), customer.getIcon());
+//        map[customer.getX()][customer.getY()] = customer.getIcon();
 
         /*
         To get the registrations of all cars (keys)
@@ -45,13 +55,24 @@ public class App {
             System.out.println(key);
         }
         */
-        Random rand = new Random();
 
-        while (!endApp) {
 
-            map1.printMap(map, taxis);
-            map1.moveTaxis(taxis, rand);
-            map1.checkBorder(taxis);
+        map.initializeMap();
+        map.placeOnMap(0, 0, 'C');
+
+        mapArray = map.map;
+
+        while (!Map.endApp) {
+
+            mapArray = map.spawnVehicle(mapArray, taxis);
+
+            map.printMap();
+
+            map.moveTaxis(taxis,mapArray);
+            System.out.println();
+            map.printMap();
+
+            map.checkBorder(taxis);
 
             try {
                 Thread.sleep(1500);

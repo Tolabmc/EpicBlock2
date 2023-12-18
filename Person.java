@@ -3,14 +3,14 @@ public class Person {
     private String name;
     private char icon = 'P';
 
-    private int XcoOrd;
-    private int YcoOrd;
+    private int X;
+    private int Y;
 
-    public Person(String name, char icon, int XcoOrd, int YcoOrd) {
+    public Person(String name, char icon, int X, int Y) {
         this.name = name;
         this.icon = icon;
-        this.XcoOrd = XcoOrd;
-        this.YcoOrd = YcoOrd;
+        this.X = X;
+        this.Y = Y;
     }
     public String getName() {
         return name;
@@ -24,20 +24,20 @@ public class Person {
         this.icon = icon;
     }
 
-    public int getXcoOrd() {
-        return XcoOrd;
+    public int getX() {
+        return X;
     }
 
-    public void setXcoOrd(int xcoOrd) {
-        XcoOrd = xcoOrd;
+    public void setX(int X) {
+        X = X;
     }
 
-    public int getYcoOrd() {
-        return YcoOrd;
+    public int getY() {
+        return Y;
     }
 
-    public void setYcoOrd(int ycoOrd) {
-        YcoOrd = ycoOrd;
+    public void setY(int Y) {
+        Y = Y;
     }
 
     public char getIcon(){
