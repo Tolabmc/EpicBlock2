@@ -35,8 +35,8 @@ public class App {
         //map1.placePerson();
 
 
-       Person person = new Person("Jim", 'P', 4, 5);
-        map1.placeOnMap(person.getXcoOrd(),person.getYcoOrd(), person.getIcon());
+      Customer customer = new Customer("Jim", 'P', 4, 5);
+        map1.placeOnMap(customer.getXcoOrd(),customer.getYcoOrd(), customer.getIcon());
 
 
         /*
@@ -101,6 +101,7 @@ public class App {
 /*
             taxi.moveVehicle(direction, map);
                 }
+
 
             }
         }
