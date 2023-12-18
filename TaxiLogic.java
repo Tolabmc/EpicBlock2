@@ -1,10 +1,44 @@
 import java.util.Scanner;
-
+import java.util.HashMap;
     public class TaxiLogic {
         private Direction direction;
+        private static final char taxiIcon = 'V';
 
 
         Location vehicleLocation = new Location(2, 4);
+        public String searchForTaxi(Location location, HashMap<String, Character> occupancies, int mapSize) {
+            int radius = 1;
+
+            while (true) {
+                for (int i = location.getX() - radius; i <= location.getX() + radius; i++) {
+                    for (int j = location.getY() - radius; j <= location.getY() + radius; j++) {
+                        if (isWithinBounds(i, j, mapSize) && occupancies.containsKey(coordinatesToString(i, j))) {
+                            char squareOccupancy = occupancies.get(coordinatesToString(i, j));
+
+                            if (squareOccupancy == taxiIcon) {
+                                return "Taxi found at coordinates (" + i + ", " + j + ")";
+                            }
+                        }
+                    }
+                }
+
+                radius++;
+
+                // Optional: Add a condition to prevent an infinite loop (e.g., if radius exceeds a certain limit)
+
+
+                return "No taxi found";
+            }
+        }
+
+        private boolean isWithinBounds(int x, int y, int mapSize) {
+            return x >= 0 && x < mapSize && y >= 0 && y < mapSize;
+        }
+
+        private String coordinatesToString(int x, int y) {
+            return x + "," + y;
+        }
+
 
 /*
         public void moveVehicle(Direction direction, Map map) {
