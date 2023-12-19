@@ -1,9 +1,9 @@
 import java.util.Scanner;
 import java.util.HashMap;
     public class TaxiLogic {
+
         private Direction direction;
         private static final char taxiIcon = 'V';
-
 
         Location vehicleLocation = new Location(2, 4);
         public String searchForTaxi(Location location, HashMap<String, Character> occupancies, int mapSize) {
@@ -61,6 +61,9 @@ import java.util.HashMap;
         }
         */
 
+
+
+
         public boolean isValidMove(int x, int y, Map map) {
             return x >= 0 && x < map.MAP_SIZE && y >= 0 && y < map.MAP_SIZE;
         }
@@ -72,14 +75,16 @@ import java.util.HashMap;
         Taxi currentTaxi = taxis.retrieve();
 while (!taxis.isEmpty()){
 
+
+
 }
-    //   if currentTaxi.getX() <
+
+        //if (currentTaxi.getX() <
 
             return vehicleLocation;
         }
        // private Location vehicleLocation;
         public void requestARide(String typeOfVehicle){
-
 
     /*
 Find vehicles within 2r radius of the current Person location
@@ -162,3 +167,6 @@ Return vehicles within the range
         }
 
     }
+
+
+

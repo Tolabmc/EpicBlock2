@@ -107,7 +107,6 @@ public class Map {
         return mapArray;
     }
 
-
     public static char[][] moveTaxis(LinkedList<Taxi> taxis, char[][] map) {
         taxis.findFirst();
 
@@ -155,12 +154,38 @@ public class Map {
         }
     }
 
-
     public void placeOnMap(int x, int y, char icon) {
         map[x][y] = icon;
 
     }
+
+    public boolean searchAdjacentVehicles(int x, int y) {
+        // Define the surrounding squares' coordinates
+        int[] dx = {-1, 0, 1, -1, 1, -1, 0, 1};
+        int[] dy = {-1, -1, -1, 0, 0, 1, 1, 1};
+
+        for (int i = 0; i < dx.length; i++) {
+            int newX = x + dx[i];
+            int newY = y + dy[i];
+
+            // Check if the coordinates are within the map boundaries
+            if (isValid(newX, newY)) {
+                // Check if the square contains a vehicle
+                if (map[newX][newY] == VehicleChar) {
+                    return true; // Vehicle found adjacent to the customer
+                }
+            }
+        }
+        return false; // No vehicle found adjacent to the customer
+    }
+
+    private boolean isValid(int x, int y) {
+        return x >= 0 && x < MAP_SIZE && y >= 0 && y < MAP_SIZE;
+    }
+
 }
+
+
 
 
 /*
