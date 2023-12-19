@@ -26,10 +26,9 @@ public class App extends LinkedList<Location> {
 
         taxis.insert(new Taxi(3, 5));
         taxis.insert(new Taxi(6, 2));
-//        taxis.insert(new Taxi(0, 0));
         taxis.insert(new Taxi(1, 2));
-//        taxis.insert(new Taxi(7, 9));
-//        taxis.insert(new Taxi(5, 1));
+        taxis.insert(new Taxi(7, 9));
+        taxis.insert(new Taxi(5, 1));
 
 
 /*
@@ -58,11 +57,12 @@ public class App extends LinkedList<Location> {
 
 
         map.initializeMap();
-        map.placeOnMap(0, 0, 'C');
+
 
         mapArray = map.map;
 
         while (!Map.endApp) {
+            map.placeOnMap(4, 5, 'C');
 
             mapArray = map.spawnVehicle(mapArray, taxis);
 
@@ -70,9 +70,9 @@ public class App extends LinkedList<Location> {
 
             map.moveTaxis(taxis,mapArray);
             System.out.println();
-            map.printMap();
 
             map.checkBorder(taxis);
+
 
             try {
                 Thread.sleep(1500);
