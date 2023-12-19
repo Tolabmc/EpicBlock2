@@ -4,11 +4,11 @@ import java.util.Random;
 public class Map {
 
     public static boolean endApp = false;
-    private Person person;
+    private Customer customer;
     public static final int MAP_SIZE = 10;
     public static final char EMPTY = '.';
     public static final char VehicleChar = 'V';
-    public static final char PersonChar = 'P';
+    public static final char customerChar = 'P';
 
 //Person person = new Person("Jim",'P',2,7);
 //    private char[][] map;
@@ -55,119 +55,112 @@ public class Map {
         }
     }
 
-/*
-    public void printMap(char[][] map, LinkedList<Taxi> taxis) {
+    /*
+        public void printMap(char[][] map, LinkedList<Taxi> taxis) {
 
-        for (int i = 0; i < MAP_SIZE; i++) {
-            for (int j = 0; j < MAP_SIZE; j++) {
-                boolean carSquare = false;
+            for (int i = 0; i < MAP_SIZE; i++) {
+                for (int j = 0; j < MAP_SIZE; j++) {
+                    boolean carSquare = false;
 
-                taxis.findFirst();
+                    taxis.findFirst();
 
-                while (!taxis.isEmpty()) {
+                    while (!taxis.isEmpty()) {
 
-                    // System.out.print("i: " + i + "j: " + j);
+                        // System.out.print("i: " + i + "j: " + j);
 
-                    Taxi currentTaxi = taxis.retrieve();
+                        Taxi currentTaxi = taxis.retrieve();
 
-                    if (currentTaxi.contains(i, j)) {
-                        System.out.print(VehicleChar + " ");
-                        carSquare = true;
-                        break;
+                        if (currentTaxi.contains(i, j)) {
+                            System.out.print(VehicleChar + " ");
+                            carSquare = true;
+                            break;
+                        }
+
+                        taxis.findNext();
+                        if (taxis.isLast()) {
+                            break;
+                        }
                     }
-
-                    taxis.findNext();
-                    if (taxis.isLast()) {
-                        break;
+                    if (!carSquare) {
+                        map[i][j] = EMPTY;
+                        System.out.print(map[i][j] + " ");
                     }
                 }
-                if (!carSquare) {
-                    map[i][j] = EMPTY;
-                    System.out.print(map[i][j] + " ");
-                }
+                System.out.println();
             }
-            System.out.println();
         }
-    }
-*/
+    */
     public static char[][] spawnVehicle(char[][] mapArray, LinkedList<Taxi> taxis) {
 
 
         taxis.findFirst();
 
         while (!taxis.isEmpty()) {
+            Taxi currentTaxi = taxis.retrieve();
+            mapArray[currentTaxi.getX()][currentTaxi.getY()] = VehicleChar;
+
+                    taxis.findNext();
+            if (taxis.isLast()) {
+                break;
+            }
+        }
+        return mapArray;
+    }
 
 
+    public static char[][] moveTaxis(LinkedList<Taxi> taxis, char[][] map) {
+        taxis.findFirst();
 
+        while (!taxis.isEmpty()) {
             Taxi currentTaxi = taxis.retrieve();
 
-          mapArray[currentTaxi.getX()][currentTaxi.getY()] = VehicleChar;
+
+            Random random = new Random();
+            int randomMove = random.nextInt(4);
+            map[currentTaxi.getX()][currentTaxi.getY()] = '.';
+            currentTaxi.move(randomMove);
 
 
+            taxis.findNext();
+
+            if (taxis.isLast()) {
+                break;
+            }
+        }
+        return map;
+    }
+
+    public static void checkBorder(LinkedList<Taxi> taxis) {
+        taxis.findFirst();
+
+        while (!taxis.isEmpty()) {
+            Taxi currentTaxi = taxis.retrieve();
+
+            if (currentTaxi.getX() < 0) {
+                currentTaxi.setX(0);
+            } else if (currentTaxi.getX() >= MAP_SIZE) {
+                currentTaxi.setX(MAP_SIZE - 1);
+            }
+
+            if (currentTaxi.getY() < 0) {
+                currentTaxi.setY(0);
+            } else if (currentTaxi.getY() >= MAP_SIZE) {
+                currentTaxi.setY(MAP_SIZE - 1);
+            }
 
             taxis.findNext();
             if (taxis.isLast()) {
                 break;
             }
         }
-return mapArray;
     }
 
 
+    public void placeOnMap(int x, int y, char icon) {
+        map[x][y] = icon;
 
-
-public static char[][] moveTaxis(LinkedList<Taxi> taxis, char[][] map) {
-    taxis.findFirst();
-
-    while (!taxis.isEmpty()) {
-        Taxi currentTaxi = taxis.retrieve();
-
-
-        Random random = new Random();
-        int randomMove = random.nextInt(4);
-        currentTaxi.move(randomMove);
-
-       // map[currentTaxi.getX()][currentTaxi.getY()] = '.';
-        taxis.findNext();
-
-        if (taxis.isLast()) {
-            break;
-        }
-    }
-    return map;
-}
-
-public static void checkBorder(LinkedList<Taxi> taxis) {
-    taxis.findFirst();
-
-    while (!taxis.isEmpty()) {
-        Taxi currentTaxi = taxis.retrieve();
-
-        if (currentTaxi.getX() < 0) {
-            currentTaxi.setX(0);
-        } else if (currentTaxi.getX() >= MAP_SIZE) {
-            currentTaxi.setX(MAP_SIZE - 1);
-        }
-
-        if (currentTaxi.getY() < 0) {
-            currentTaxi.setY(0);
-        } else if (currentTaxi.getY() >= MAP_SIZE) {
-            currentTaxi.setY(MAP_SIZE - 1);
-        }
-
-        taxis.findNext();
-        if (taxis.isLast()) {
-            break;
-        }
     }
 }
-
-
-public void placeOnMap(int x, int y, char icon) {
-    map[x][y] = icon;
-
-}
-    }
 
 /*
 public void printMap(char[][] map, LinkedList<Taxi> taxis) {

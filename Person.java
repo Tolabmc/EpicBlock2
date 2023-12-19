@@ -1,7 +1,7 @@
 public class Person {
 
     private String name;
-    private char icon = 'P';
+    private char icon = 'C';
 
     private int X;
     private int Y;
