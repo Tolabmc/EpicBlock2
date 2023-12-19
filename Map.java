@@ -162,6 +162,7 @@ public class Map {
     }
 }
 
+
 /*
 public void printMap(char[][] map, LinkedList<Taxi> taxis) {
 

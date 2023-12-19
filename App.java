@@ -36,8 +36,8 @@ public class App extends LinkedList<Location> {
         taxis.add(new Taxi(6, 2));
 */
 
-        listOfVehicles.put("14-D-1262", new Vehicle("14-D-1262", "Regular", "BMW"));
-        listOfVehicles.put("14-E-1234", new Vehicle("14-E-1234", "XL", "Volvo"));
+        listOfVehicles.put("14-D-1262", new Vehicle("14-D-1262", "Regular", "BMW", 3, 5));
+        listOfVehicles.put("14-E-1234", new Vehicle("14-E-1234", "XL", "Volvo", 6, 2));
 
         char[][] mapArray = new char[Map.MAP_SIZE][Map.MAP_SIZE];
 
@@ -59,10 +59,11 @@ public class App extends LinkedList<Location> {
         map.initializeMap();
 
 
+
         mapArray = map.map;
 
         while (!Map.endApp) {
-            map.placeOnMap(4, 5, 'C');
+            map.placeOnMap(customer.getX(), customer.getY(), customer.getIcon());
 
             mapArray = map.spawnVehicle(mapArray, taxis);
 

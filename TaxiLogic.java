@@ -26,7 +26,6 @@ import java.util.HashMap;
 
                 // Optional: Add a condition to prevent an infinite loop (e.g., if radius exceeds a certain limit)
 
-
                 return "No taxi found";
             }
         }
@@ -66,7 +65,16 @@ import java.util.HashMap;
             return x >= 0 && x < map.MAP_SIZE && y >= 0 && y < map.MAP_SIZE;
         }
 
-        public Location getVehicleLocation(){
+        public Location getVehicleLocation(LinkedList<Taxi> taxis){
+
+        taxis.findFirst();
+
+        Taxi currentTaxi = taxis.retrieve();
+while (!taxis.isEmpty()){
+
+}
+    //   if currentTaxi.getX() <
+
             return vehicleLocation;
         }
        // private Location vehicleLocation;

@@ -15,14 +15,37 @@ public class Vehicle {
     private String reg;
     private int defaultRating = 1;
 
+    private int X;
+
+    public int getX() {
+        return X;
+    }
+
+    public void setX(int x) {
+        X = x;
+    }
+
+    private int Y;
+
+    public int getY(){
+        return Y;
+
+    }
+
+    public void setY(int Y){
+        Y =Y;
+    }
+
     private char icon = 'V';
 
-    public Vehicle(String reg, String vehicleSize, String vehicleBrand) {
+    public Vehicle(String reg, String vehicleSize, String vehicleBrand, int X, int Y) {
         this.driverName = driverName;
         this.vehicleBrand = vehicleBrand;
         this.reg = reg;
         this.driverRating = defaultRating; //all drivers start at rating of 1
         this.icon = icon;
+        this.X = X;
+        this.Y = Y;
 
     }
 
