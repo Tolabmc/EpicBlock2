@@ -64,35 +64,27 @@ public class Map {
         while (!taxis.isEmpty()) {
             Taxi currentTaxi = taxis.retrieve();
 
-
-
-           int currentX =  currentTaxi.getX(); //define variables x and y
+           int currentX =  currentTaxi.getX(); //get current taxi x and y
             int currentY =  currentTaxi.getY();
-
 
             Random random = new Random();
             int randomMove = random.nextInt(4);
             map[currentTaxi.getX()][currentTaxi.getY()] = '.';
-            currentTaxi.move(randomMove);
 
             switch (randomMove) {
                 case 0: //up
-                    currentTaxi.setY(y--);
+                    currentTaxi.setY(currentY -1);
                     break;
                 case 1: //Left
-                    cux--;
+                    currentTaxi.setX(currentX -1);
                     break;
                 case 2: //down
-                    y++;
+                    currentTaxi.setY(currentY +1);
                     break;
                 case 3://right
-                    x++;
+                    currentTaxi.setX(currentX +1);
                     break;
             }
-
-
-
-
 
             taxis.findNext();
 

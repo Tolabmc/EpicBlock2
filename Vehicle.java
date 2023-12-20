@@ -46,6 +46,7 @@ public class Vehicle {
         this.icon = icon;
         this.X = X;
         this.Y = Y;
+        this.vehicleSize = vehicleSize;
 
     }
 

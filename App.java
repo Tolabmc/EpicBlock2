@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 
 import java.util.Scanner;
@@ -55,22 +56,10 @@ public class App extends LinkedList<Location> {
         map.placeOnMap(customer.getX(), customer.getY(), customer.getIcon());
 
         //Asks the user if they want to request a ride
-        RequestARide(customer);
-
+        Customer.RequestARide();
 //      If user requests a ride the app waits for a taxi to move into nearby range
         while (!Map.endApp) {
-
             System.out.println();
-
-//            boolean vehicleNearby = map.searchAdjacentVehicles(mapArray, customer.getX(), customer.getY());
-//            while(vehicleNearby){
-//                System.out.print("Vehicle found");
-//            }
-//            while (!vehicleNearby) {
-
-//                System.out.println("No nearby vehicles found. Waiting for a vehicle to arrive...");
-            // Wait or delay execution here
-
             try {
                 Thread.sleep(600); // Adjust the delay time as needed
             } catch (InterruptedException e) {
@@ -81,81 +70,99 @@ public class App extends LinkedList<Location> {
 
             mapArray = map.spawnVehicle(mapArray, taxis);
 
-
-            int[] dx = {-1, 0, 1, -1, 1, -1, 0, 1};
-            int[] dy = {-1, -1, -1, 0, 0, 1, 1, 1};
-
-            for (int i = 0; i < dx.length; i++) {
-                int x = customer.getX();
-                int y = customer.getY();
-
-                int newX = x + dx[i];
-                int newY = y + dy[i];
-//            System.out.println("newx: " +newX);
-//            System.out.println("newY: "+ newY);
-
-                // Check if the coordinates are within the map boundaries
-                if (isValid(newX, newY, mapArray.length)) {
-                    // Check if the square contains a vehicle
-                    if (mapArray[newX][newY] == 'V') {
-                        System.out.println("CAR FOUND");
-                        map.placeOnMap(customer.getX(), customer.getY(), '.');
-
-                        taxi.selectDestination(customer, map);
-                        map.printMap();
-                         Map.endApp = true;
-
-                    }
-                }
-            }
 //            Until a car enters the area around the customer it prints car not found and the vehicles move again
-            System.out.println("car not found");
+//            System.out.println("car not found");
+
 
             map.printMap();
             map.moveTaxis(taxis, mapArray);
+            Vehicle[] taxisInRange = getVehiclesinRange(listOfVehicles, customer, "XL");
+            requestARide(taxisInRange, customer);
             map.checkBorder(taxis);
+
             // vehicleNearby = map.searchAdjacentVehicles(mapArray, customer.getX(), customer.getY());
         }
 //        If the users don't request a ride this message is printed and the app closes
-        if (Map.endApp){
+        if (Map.endApp) {
             System.out.println("Thank you for using our taxi!");
-
-
             System.exit(0);
         }
-
         // Once a vehicle is nearby, prompt the customer to select a destination
         // taxi.selectDestination(customer);
     }
 
+    private static Vehicle[] getVehiclesinRange(HashMap<String, Vehicle> listOfVehicles, Customer customer, String vehicleType) {
 
-    //boolean vehicleNearby = map.searchAdjacentVehicles(customer.getX(),customer.getY());
-/*
-        if (vehicleNearby) {
-            RequestARide(customer);
-            taxi.selectDestination(customer);
-            map.placeOnMap(customer.getX(),customer.getY(),customer.getIcon());
-           */
 
-    //    }
+        Vehicle[] vehicleArray = new Vehicle[listOfVehicles.size()];
+        int index = 0;
+        int radius = getSearchRadius(customer, 2, 10);
 
-/*
-            try {
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        for (Vehicle i : listOfVehicles.values()) {
+            // System.out.println("Vehicle found in range:" + i.getX() + " " + i.getY());
+
+            if (i.getX() <= (customer.getX() + radius) && i.getY() <= (customer.getY()) + radius) {
+                if (i.getVehicleSize().equals(vehicleType)) {
+                    vehicleArray[index] = new Vehicle(i.getReg(), i.getVehicleSize(), i.getVehicleBrand(), i.getX(), i.getY());
+                    index++;
+                }
             }
         }
-        System.out.println("App Closed.");
-*/
-
-
+        System.out.println(vehicleArray);
+        return vehicleArray;
+    }
 
 
     private static boolean isValid(int x, int y, int size) {
         return x >= 0 && x < size && y >= 0 && y < size;
     }
+
+    public static int getSearchRadius(Customer customer, int r, int size) {
+
+        int radius = 2 * r;
+        if (customer.getX() >= radius && customer.getX() < size && customer.getY() >= radius && customer.getY() < size) {
+
+        }
+        return 2 * r;
+    }
+
+    public static double[] requestARide(Vehicle[] vehicleArray, Customer customer) {
+
+        double[][] vehicleDistances = new double[vehicleArray.length][vehicleArray.length];
+
+        for (int i = 0; i < vehicleArray.length; i++) {
+
+            if (vehicleArray[i] != null) {
+                vehicleDistances[i] = distanceToCustomer(customer, vehicleArray[i]);
+                System.out.println(distanceToCustomer(customer, vehicleArray[i]));
+            }
+            Arrays.sort(vehicleDistances);
+            double closestVehicle = vehicleDistances[0];
+
+        }
+        return vehicleDistances;
+
+    }
+          /*
+Find vehicles within 2r radius of the current Person location
+Put these in an Array
+Sort this Array by rank
+(this is getVehiclesInRange())
+Assign Vehicle to Customer
+Remove Vehicle from Map (map[vehicleX][vehicleY]=’.’)
+Redraw Map
+
+     */
+
+
+    public static double distanceToCustomer(Customer customer, Vehicle vehicle) {
+        return Math.sqrt(Math.pow(vehicle.getX() - customer.getX(), 2) + Math.pow(vehicle.getY() - customer.getY(), 2));
+    }
+
+
 }
+
+
 
 
 

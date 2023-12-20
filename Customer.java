@@ -7,10 +7,13 @@ public class Customer extends Person{
 
     public Customer(String name, char icon, int XcoOrd, int YcoOrd) {
         super(name, icon, XcoOrd, YcoOrd);
-        private static void RequestARide(Customer ) {
-                TaxiLogic taxi = new TaxiLogic();
 
-        Map map = new Map();
+
+    }
+    static void RequestARide() {
+        //TaxiLogic taxi = new TaxiLogic();
+
+       // Map map = new Map();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Request a ride? (y/n)");
         String input = scanner.nextLine();
@@ -25,8 +28,6 @@ public class Customer extends Person{
             }
         }
 
-        }
     }
-
-
 }
+
