@@ -32,11 +32,33 @@ public class Vehicle {
 
     }
 
+    private double distanceToCustomer;
+
     public void setY(int Y){
         Y =Y;
     }
 
     private char icon = 'V';
+
+    public float getDefaultRating() {
+        return defaultRating;
+    }
+
+    public void setDefaultRating(float defaultRating) {
+        this.defaultRating = defaultRating;
+    }
+
+    public double getDistanceToCustomer() {
+        return distanceToCustomer;
+    }
+
+    public void setDistanceToCustomer(double distanceToCustomer) {
+        this.distanceToCustomer = distanceToCustomer;
+    }
+
+    public void setIcon(char icon) {
+        this.icon = icon;
+    }
 
     public Vehicle(String reg, String vehicleSize, String vehicleBrand, int X, int Y) {
         this.driverName = driverName;
@@ -47,8 +69,10 @@ public class Vehicle {
         this.X = X;
         this.Y = Y;
         this.vehicleSize = vehicleSize;
-
+        this.distanceToCustomer = 100;
     }
+
+
 
     public char getIcon(){
         return icon;

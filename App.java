@@ -108,7 +108,7 @@ public class App extends LinkedList<Location> {
                 }
             }
         }
-        System.out.println(vehicleArray);
+       // System.out.println(vehicleArray);
         return vehicleArray;
     }
 
@@ -128,13 +128,12 @@ public class App extends LinkedList<Location> {
 
     public static double[] requestARide(Vehicle[] vehicleArray, Customer customer) {
 
-        double[][] vehicleDistances = new double[vehicleArray.length][vehicleArray.length];
+        double[] vehicleDistances = {vehicleArray.length};
 
         for (int i = 0; i < vehicleArray.length; i++) {
-
             if (vehicleArray[i] != null) {
-                vehicleDistances[i] = distanceToCustomer(customer, vehicleArray[i]);
-                System.out.println(distanceToCustomer(customer, vehicleArray[i]));
+                vehicleArray[i].setDistanceToCustomer(distanceToCustomer(customer, vehicleArray[i]));
+
             }
             Arrays.sort(vehicleDistances);
             double closestVehicle = vehicleDistances[0];
