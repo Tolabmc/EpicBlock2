@@ -1,7 +1,5 @@
 import java.util.HashMap;
-//import java.util.LinkedList;
-//import java.util.LinkedList;
-import java.util.Random;
+
 import java.util.Scanner;
 
 public class App extends LinkedList<Location> {
@@ -24,7 +22,7 @@ public class App extends LinkedList<Location> {
         HashMap<String, Vehicle> listOfVehicles = new HashMap<String, Vehicle>();
         TaxiLogic taxi = new TaxiLogic();
 
-
+        //Creates new vehicles in the Hash Map
         listOfVehicles.put("00-00", new Vehicle("00-00", "Test", "Void", 0, 0));
 
         listOfVehicles.put("14-E-1234", new Vehicle("14-E-1234", "XL", "Volvo", 6, 2));
@@ -33,7 +31,7 @@ public class App extends LinkedList<Location> {
         listOfVehicles.put("14-G-1234", new Vehicle("14-G-1234", "XL", "BMW", 7, 9));
         listOfVehicles.put("14-H-1234", new Vehicle("14-H-1234", "Regular", "Mercedes", 4, 8));
 
-
+        //Adds the new vehicles to the linked list
         taxis.insert(new Taxi(listOfVehicles.get("00-00").getX(), listOfVehicles.get("00-00").getY()));
 
         taxis.insert(new Taxi(listOfVehicles.get("14-E-1234").getX(), listOfVehicles.get("14-E-1234").getY()));
@@ -43,19 +41,23 @@ public class App extends LinkedList<Location> {
         taxis.insert(new Taxi(listOfVehicles.get("14-H-1234").getX(), listOfVehicles.get("14-H-1234").getY()));
 
 
-        char[][] mapArray = new char[Map.MAP_SIZE][Map.MAP_SIZE];
+        char[][] mapArray;
 
         Map map = new Map();
 
+        //Creates new Customer and defines their location on the map
         Customer customer = new Customer("Jim", 'C', 4, 5);
 
+        //Initialises the blank map of empty spaces
         map.initializeMap();
         mapArray = map.map;
+        //Places the customer on the map at it's given coordinates
         map.placeOnMap(customer.getX(), customer.getY(), customer.getIcon());
 
+        //Asks the user if they want to request a ride
         RequestARide(customer);
 
-
+//      If user requests a ride the app waits for a taxi to move into nearby range
         while (!Map.endApp) {
 
             System.out.println();
@@ -106,6 +108,7 @@ public class App extends LinkedList<Location> {
                     }
                 }
             }
+//            Until a car enters the area around the customer it prints car not found and the vehicles move again
             System.out.println("car not found");
 
             map.printMap();
@@ -113,7 +116,7 @@ public class App extends LinkedList<Location> {
             map.checkBorder(taxis);
             // vehicleNearby = map.searchAdjacentVehicles(mapArray, customer.getX(), customer.getY());
         }
-
+//        If the users don't request a ride this message is printed and the app closes
         if (Map.endApp){
             System.out.println("Thank you for using our taxi!");
 
@@ -147,25 +150,7 @@ public class App extends LinkedList<Location> {
 */
 
 
-    private static void RequestARide(Customer customer) {
-        TaxiLogic taxi = new TaxiLogic();
 
-        Map map = new Map();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Request a ride? (y/n)");
-        String input = scanner.nextLine();
-
-        while (!input.equalsIgnoreCase("y")) {
-            if (input.equalsIgnoreCase("n")) {
-                System.out.println("Goodbye!");
-                System.exit(0);
-            } else {
-                System.out.println("Invalid input. Please enter 'y' to request a ride or 'n' to exit.");
-                input = scanner.nextLine();
-            }
-        }
-
-    }
 
     private static boolean isValid(int x, int y, int size) {
         return x >= 0 && x < size && y >= 0 && y < size;

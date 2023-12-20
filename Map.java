@@ -10,8 +10,6 @@ public class Map {
     public static final char VehicleChar = 'V';
     public static final char customerChar = 'P';
 
-//Person person = new Person("Jim",'P',2,7);
-//    private char[][] map;
 
     public char[][] map;
 
@@ -19,16 +17,9 @@ public class Map {
     public Map() {
         map = new char[MAP_SIZE][MAP_SIZE];
         this.map = map;
-        //person = new Person("Jim",'P',2,7);
-        // initializeMap();
-    }
-/*
-    public void placePerson(){
-        placeOnMap(this.person.getXcoOrd(), this.person.getYcoOrd(), this.person.getIcon());
-    }
 
- */
-
+    }
+//  The intitialise map function sets each char to an empty dot to create the empty map
     public void initializeMap() {
         for (int i = 0; i < MAP_SIZE; i++) {
             for (int j = 0; j < MAP_SIZE; j++) {
@@ -37,14 +28,8 @@ public class Map {
         }
     }
 
-/*
-    taxis.start();
-  while (!taxis.empty()) {
-        Taxi currentTaxi = taxis.get();
-        taxis.next();
 
-        */
-
+//  The print Map function is called in app to print the mapArray which allows the customers and vehicles to be placed
     public void printMap() {
 
         for (int i = 0; i < MAP_SIZE; i++) {
@@ -55,41 +40,7 @@ public class Map {
         }
     }
 
-    /*
-        public void printMap(char[][] map, LinkedList<Taxi> taxis) {
 
-            for (int i = 0; i < MAP_SIZE; i++) {
-                for (int j = 0; j < MAP_SIZE; j++) {
-                    boolean carSquare = false;
-
-                    taxis.findFirst();
-
-                    while (!taxis.isEmpty()) {
-
-                        // System.out.print("i: " + i + "j: " + j);
-
-                        Taxi currentTaxi = taxis.retrieve();
-
-                        if (currentTaxi.contains(i, j)) {
-                            System.out.print(VehicleChar + " ");
-                            carSquare = true;
-                            break;
-                        }
-
-                        taxis.findNext();
-                        if (taxis.isLast()) {
-                            break;
-                        }
-                    }
-                    if (!carSquare) {
-                        map[i][j] = EMPTY;
-                        System.out.print(map[i][j] + " ");
-                    }
-                }
-                System.out.println();
-            }
-        }
-    */
     public static char[][] spawnVehicle(char[][] mapArray, LinkedList<Taxi> taxis) {
 
 
@@ -109,10 +60,6 @@ public class Map {
 
     public static char[][] moveTaxis(LinkedList<Taxi> taxis, char[][] map) {
         taxis.findFirst();
-
-
-
-
 
         while (!taxis.isEmpty()) {
             Taxi currentTaxi = taxis.retrieve();
@@ -155,7 +102,7 @@ public class Map {
         }
         return map;
     }
-
+//     The checkBorder method checks after a vehicle moves to see if it is touching a border before it moves again this ensures the vehicles don't move beyond the map
     public static void checkBorder(LinkedList<Taxi> taxis) {
         taxis.findFirst();
 
@@ -180,7 +127,7 @@ public class Map {
             }
         }
     }
-
+//  placeOnMap is used to place icons at given coordinates on the map we use this to place the customer
     public void placeOnMap(int x, int y, char icon) {
         map[x][y] = icon;
 
@@ -215,49 +162,3 @@ public class Map {
 
 }
 
-
-
-
-/*
-public void printMap(char[][] map, LinkedList<Taxi> taxis) {
-
-    taxis.start();
-    System.out.print(taxis.get());
-
-    for (int i = 0; i < MAP_SIZE; i++) {
-        for (int j = 0; j < MAP_SIZE; j++) {
-            boolean carSquare = false;
-
-
-
-            for (Taxi taxi: taxis) {
-                if (taxi.contains(j, i)) {
-                    System.out.print(VehicleChar + " ");
-                    carSquare = true;
-                    break;
-                }
-            }
-/*
-                while (!taxis.empty()) {
-                    System.out.print("i: " + i + "j: " + j);
-
-                    Taxi currentTaxi = taxis.get();
-
-                    if (currentTaxi.contains(j, i)) {
-                        System.out.print(VehicleChar + " ");
-                        carSquare = true;
-                        break;
-                    }
-
-                    taxis.next();
-                }
-
-            if (!carSquare) {
-                this.map[i][j] = EMPTY;
-                System.out.print(map[i][j] + " ");
-            }
-        }
-        System.out.println();
-    }
-}
-*/
