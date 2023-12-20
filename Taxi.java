@@ -28,21 +28,6 @@ public class Taxi {
         return this.x == x && this.y == y;
     }
 
-    void move(int direction) {
-        switch (direction) {
-            case 0:
-                y--;
-                break;
-            case 1:
-                x--;
-                break;
-            case 2:
-                y++;
-                break;
-            case 3:
-                x++;
-                break;
-        }
-    }
+
 
 }

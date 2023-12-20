@@ -13,7 +13,7 @@ public class Vehicle {
     private String vehicleSize;
     private String vehicleBrand;
     private String reg;
-    private int defaultRating = 1;
+    private float defaultRating = 1;
 
     private int X;
 

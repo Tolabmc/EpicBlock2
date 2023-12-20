@@ -110,14 +110,41 @@ public class Map {
     public static char[][] moveTaxis(LinkedList<Taxi> taxis, char[][] map) {
         taxis.findFirst();
 
+
+
+
+
         while (!taxis.isEmpty()) {
             Taxi currentTaxi = taxis.retrieve();
+
+
+
+           int currentX =  currentTaxi.getX(); //define variables x and y
+            int currentY =  currentTaxi.getY();
 
 
             Random random = new Random();
             int randomMove = random.nextInt(4);
             map[currentTaxi.getX()][currentTaxi.getY()] = '.';
             currentTaxi.move(randomMove);
+
+            switch (randomMove) {
+                case 0: //up
+                    currentTaxi.setY(y--);
+                    break;
+                case 1: //Left
+                    cux--;
+                    break;
+                case 2: //down
+                    y++;
+                    break;
+                case 3://right
+                    x++;
+                    break;
+            }
+
+
+
 
 
             taxis.findNext();
@@ -159,19 +186,22 @@ public class Map {
 
     }
 
-    public boolean searchAdjacentVehicles(int x, int y) {
+    public boolean searchAdjacentVehicles(char[][] mapArray, int x, int y) {
         // Define the surrounding squares' coordinates
         int[] dx = {-1, 0, 1, -1, 1, -1, 0, 1};
         int[] dy = {-1, -1, -1, 0, 0, 1, 1, 1};
 
         for (int i = 0; i < dx.length; i++) {
+
             int newX = x + dx[i];
             int newY = y + dy[i];
+//            System.out.println("newx: " +newX);
+//            System.out.println("newY: "+ newY);
 
             // Check if the coordinates are within the map boundaries
-            if (isValid(newX, newY)) {
+            if (isValid(newX, newY, mapArray.length)) {
                 // Check if the square contains a vehicle
-                if (map[newX][newY] == VehicleChar) {
+                if (mapArray[newX][newY] == VehicleChar) {
                     return true; // Vehicle found adjacent to the customer
                 }
             }
@@ -179,8 +209,8 @@ public class Map {
         return false; // No vehicle found adjacent to the customer
     }
 
-    private boolean isValid(int x, int y) {
-        return x >= 0 && x < MAP_SIZE && y >= 0 && y < MAP_SIZE;
+    private boolean isValid(int x, int y, int size) {
+        return x >= 0 && x < size && y >= 0 && y < size;
     }
 
 }

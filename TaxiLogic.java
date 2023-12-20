@@ -1,42 +1,45 @@
 import java.util.Scanner;
 import java.util.HashMap;
-    public class TaxiLogic {
 
-        private Direction direction;
-        private static final char taxiIcon = 'V';
+public class TaxiLogic {
+    Map map = new Map();
+    App app = new App();
+    private Direction direction;
+    private static final char taxiIcon = 'V';
 
-        Location vehicleLocation = new Location(2, 4);
-        public String searchForTaxi(Location location, HashMap<String, Character> occupancies, int mapSize) {
-            int radius = 1;
+    Location vehicleLocation = new Location(2, 4);
 
-            while (true) {
-                for (int i = location.getX() - radius; i <= location.getX() + radius; i++) {
-                    for (int j = location.getY() - radius; j <= location.getY() + radius; j++) {
-                        if (isWithinBounds(i, j, mapSize) && occupancies.containsKey(coordinatesToString(i, j))) {
-                            char squareOccupancy = occupancies.get(coordinatesToString(i, j));
+    public String searchForTaxi(Location location, HashMap<String, Character> occupancies, int mapSize) {
+        int radius = 1;
 
-                            if (squareOccupancy == taxiIcon) {
-                                return "Taxi found at coordinates (" + i + ", " + j + ")";
-                            }
+        while (true) {
+            for (int i = location.getX() - radius; i <= location.getX() + radius; i++) {
+                for (int j = location.getY() - radius; j <= location.getY() + radius; j++) {
+                    if (isWithinBounds(i, j, mapSize) && occupancies.containsKey(coordinatesToString(i, j))) {
+                        char squareOccupancy = occupancies.get(coordinatesToString(i, j));
+
+                        if (squareOccupancy == taxiIcon) {
+                            return "Taxi found at coordinates (" + i + ", " + j + ")";
                         }
                     }
                 }
-
-                radius++;
-
-                // Optional: Add a condition to prevent an infinite loop (e.g., if radius exceeds a certain limit)
-
-                return "No taxi found";
             }
-        }
 
-        private boolean isWithinBounds(int x, int y, int mapSize) {
-            return x >= 0 && x < mapSize && y >= 0 && y < mapSize;
-        }
+            radius++;
 
-        private String coordinatesToString(int x, int y) {
-            return x + "," + y;
+            // Optional: Add a condition to prevent an infinite loop (e.g., if radius exceeds a certain limit)
+
+            return "No taxi found";
         }
+    }
+
+    private boolean isWithinBounds(int x, int y, int mapSize) {
+        return x >= 0 && x < mapSize && y >= 0 && y < mapSize;
+    }
+
+    private String coordinatesToString(int x, int y) {
+        return x + "," + y;
+    }
 
 
 /*
@@ -61,30 +64,50 @@ import java.util.HashMap;
         }
         */
 
+    public void review(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Leave a review: /5 ");
+        scanner.nextInt();
 
 
+    }
 
-        public boolean isValidMove(int x, int y, Map map) {
-            return x >= 0 && x < map.MAP_SIZE && y >= 0 && y < map.MAP_SIZE;
-        }
+    public void selectDestination(Customer customer, Map map) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose your destination:\n X:\n");
+        int XInput = scanner.nextInt();
+        System.out.println("Y:");
+        int YInput = scanner.nextInt();
 
-        public Location getVehicleLocation(LinkedList<Taxi> taxis){
+        customer.setX(XInput);
+        customer.setY(YInput);
+        customer.setIcon('C');
+
+        map.placeOnMap(XInput,YInput,'C');
+    }
+
+
+    public boolean isValidMove(int x, int y, Map map) {
+        return x >= 0 && x < map.MAP_SIZE && y >= 0 && y < map.MAP_SIZE;
+    }
+
+    public Location getVehicleLocation(LinkedList<Taxi> taxis) {
 
         taxis.findFirst();
 
         Taxi currentTaxi = taxis.retrieve();
-while (!taxis.isEmpty()){
+        while (!taxis.isEmpty()) {
 
 
-
-}
+        }
 
         //if (currentTaxi.getX() <
 
-            return vehicleLocation;
-        }
-       // private Location vehicleLocation;
-        public void requestARide(String typeOfVehicle){
+        return vehicleLocation;
+    }
+
+    // private Location vehicleLocation;
+    // public void requestARide(String typeOfVehicle) {
 
     /*
 Find vehicles within 2r radius of the current Person location
@@ -97,9 +120,9 @@ Redraw Map
 
      */
 
-        }
+    //  }
 
-        public void completeRide(){
+    public void completeRide() {
 /*
 Put Vehicle back on map (map[vehicleX][VehicleY]=’V’
 Prompt Person for driver rating
@@ -108,28 +131,28 @@ Redraw Map
 
 
  */
+    }
+
+    public void moveTaxi() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter direction (W/A/S/D): ");
+        char input = scanner.next().charAt(0);
+
+        switch (input) {
+            case 'w':
+                direction = Direction.UP;
+                break;
+            case 'a':
+                direction = Direction.LEFT;
+                break;
+            case 's':
+                direction = Direction.DOWN;
+                break;
+            case 'd':
+                direction = Direction.RIGHT;
+                break;
         }
-
-        public void moveTaxi(){
-
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter direction (W/A/S/D): ");
-            char input = scanner.next().charAt(0);
-
-            switch (input) {
-                case 'w':
-                    direction = Direction.UP;
-                    break;
-                case 'a':
-                    direction = Direction.LEFT;
-                    break;
-                case 's':
-                    direction = Direction.DOWN;
-                    break;
-                case 'd':
-                    direction = Direction.RIGHT;
-                    break;
-            }
 
 
     /*
@@ -140,9 +163,9 @@ If you hit a wall, turn around
 
 
      */
-        }
+    }
 
-        public void removeVehicle(String reg){
+    public void removeVehicle(String reg) {
 
     /*
 Search listOfVehicles by key
@@ -151,9 +174,9 @@ Redraw Map
 
 
      */
-        }
+    }
 
-        public void getVehiclesInRange(Location loc, int r){
+    public void getVehiclesInRange(Location loc, int r) {
 
     /*
 Find distance between Person and each Vehicle
@@ -164,9 +187,9 @@ Return vehicles within the range
 
 
      */
-        }
-
     }
+
+}
 
 
 
