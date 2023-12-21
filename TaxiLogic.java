@@ -1,78 +1,23 @@
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.HashMap;
 
 public class TaxiLogic {
     Map map = new Map();
-    App app = new App();
-    private Direction direction;
-    private static final char taxiIcon = 'V';
 
-    Location vehicleLocation = new Location(2, 4);
+    public void completeRide(Vehicle vehicle, HashMap<String, Vehicle> listOfVehicles, Customer customer) {
 
-    public String searchForTaxi(Location location, HashMap<String, Character> occupancies, int mapSize) {
-        int radius = 1;
-
-        while (true) {
-            for (int i = location.getX() - radius; i <= location.getX() + radius; i++) {
-                for (int j = location.getY() - radius; j <= location.getY() + radius; j++) {
-                    if (isWithinBounds(i, j, mapSize) && occupancies.containsKey(coordinatesToString(i, j))) {
-                        char squareOccupancy = occupancies.get(coordinatesToString(i, j));
-
-                        if (squareOccupancy == taxiIcon) {
-                            return "Taxi found at coordinates (" + i + ", " + j + ")";
-                        }
-                    }
-                }
-            }
-
-            radius++;
-
-            // Optional: Add a condition to prevent an infinite loop (e.g., if radius exceeds a certain limit)
-
-            return "No taxi found";
-        }
-    }
-
-    private boolean isWithinBounds(int x, int y, int mapSize) {
-        return x >= 0 && x < mapSize && y >= 0 && y < mapSize;
-    }
-
-    private String coordinatesToString(int x, int y) {
-        return x + "," + y;
-    }
-
-
-/*
-        public void moveVehicle(Direction direction, Map map) {
-
-            int newX = (vehicleLocation.getX() + direction.getX());
-            int newY = (vehicleLocation.getY() + direction.getY());
-
-            if (isValidMove(newX, newY, map)) {
-                map.placeOnMap(vehicleLocation.getX(), vehicleLocation.getY(), Map.EMPTY);
-
-                vehicleLocation.setX(newX);
-                vehicleLocation.setY(newY);
-
-                map.placeOnMap(newX, newY, 'V');
-
-            } else {
-
-                //find a way to change direction of the car when it hits a boundary
-
-            }
-        }
-        */
-
-    public void review(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Leave a review: /5 ");
-        scanner.nextInt();
+        System.out.println("Leave a review: /5 "); //Prompt Person for driver rating
 
+        int input = scanner.nextInt();
+        listOfVehicles.get(vehicle.getReg()).setDriverRating(input);
+        map.placeOnMap(listOfVehicles.get(vehicle.getReg()).getX(), listOfVehicles.get(vehicle.getReg()).getY(), vehicle.getIcon());
+        System.out.println("Thank you for driving with us!");
 
     }
 
-    public void selectDestination(Customer customer, Map map) {
+    public int[] selectDestination(Customer customer, Map map) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose your destination:\n X:\n");
         int XInput = scanner.nextInt();
@@ -83,113 +28,61 @@ public class TaxiLogic {
         customer.setY(YInput);
         customer.setIcon('C');
 
-        map.placeOnMap(XInput,YInput,'C');
+        map.placeOnMap(XInput, YInput, 'C');
+
+        return new int[] {XInput, YInput};
     }
 
+    public static boolean isVehicleInRange(Vehicle[] subSetArray) {
 
-    public boolean isValidMove(int x, int y, Map map) {
-        return x >= 0 && x < map.MAP_SIZE && y >= 0 && y < map.MAP_SIZE;
+        return subSetArray.length > 0;
     }
 
-    public Location getVehicleLocation(LinkedList<Taxi> taxis) {
+    static Vehicle[] getVehiclesinRange(HashMap<String, Vehicle> listOfVehicles, Customer customer, String vehicleType, int r) {
 
-        taxis.findFirst();
+        Vehicle[] vehicleArray = new Vehicle[listOfVehicles.size()];
+        int index = 0;
 
-        Taxi currentTaxi = taxis.retrieve();
-        while (!taxis.isEmpty()) {
+        for (Vehicle i : listOfVehicles.values()) {
+            double distance = distanceToCustomer(customer, i);
+            double radius = 2 * r;
 
+            if (distance <= radius && i.getVehicleSize().equals(vehicleType)) { //if the distance is less than or equal to 2 * r, then those specific vehicles are contacted
 
+                vehicleArray[index] = new Vehicle(i.getReg(), i.getVehicleSize(), i.getVehicleBrand(), i.getX(), i.getY());
+                vehicleArray[index].setDistanceToCustomer(distance);
+                index++;
+            }
         }
+        //this array is a subset of all vehicles containing the desired vehicle type
+        Vehicle[] subSetArray = Arrays.copyOf(vehicleArray, index); //the index determines the size of the subset we want
 
-        //if (currentTaxi.getX() <
-
-        return vehicleLocation;
+        // this sorts the subset array by the calculated distance to the customer using a lambda function
+        Arrays.sort(subSetArray, (a, b) -> Double.compare(a.getDistanceToCustomer(), b.getDistanceToCustomer()));
+        return subSetArray;
     }
 
-    // private Location vehicleLocation;
-    // public void requestARide(String typeOfVehicle) {
+    public static Vehicle requestARide(Vehicle[] vehicleArray, Customer customer) {
 
-    /*
-Find vehicles within 2r radius of the current Person location
-Put these in an ArrayList
-Sort this ArrayList by rank
-(this is getVehiclesInRange())
-Assign Vehicle to Customer
-Remove Vehicle from Map (map[vehicleX][vehicleY]=’.’)
-Redraw Map
+        Map map = new Map();
+        TaxiLogic taxi = new TaxiLogic();
 
-     */
+        Vehicle closestVehicle = vehicleArray[0];
 
-    //  }
+        //this gets the x and y coOrd of the vehicle and sets it to the EMPTY icon
+        map.placeOnMap(closestVehicle.getX(), closestVehicle.getY(), closestVehicle.setIcon(Map.EMPTY));
 
-    public void completeRide() {
-/*
-Put Vehicle back on map (map[vehicleX][VehicleY]=’V’
-Prompt Person for driver rating
-Update driverRating
-Redraw Map
+        //this sets the x and y coOrd of the vehicle to wherever the customer is
+        map.placeOnMap(closestVehicle.setX(customer.getX()), closestVehicle.setY(customer.getY()), closestVehicle.setIcon(Map.EMPTY));
 
+        map.placeOnMap(customer.getX(), customer.getY(), customer.setIcon(Map.EMPTY));
+        System.out.println("Customer picked up");
 
- */
+        return closestVehicle;
     }
 
-    public void moveTaxi() {
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter direction (W/A/S/D): ");
-        char input = scanner.next().charAt(0);
-
-        switch (input) {
-            case 'w':
-                direction = Direction.UP;
-                break;
-            case 'a':
-                direction = Direction.LEFT;
-                break;
-            case 's':
-                direction = Direction.DOWN;
-                break;
-            case 'd':
-                direction = Direction.RIGHT;
-                break;
-        }
-
-
-    /*
-Pick a random direction (UP/DOWN/LEFT/RIGHT)
-Move one cell at a time (i.e. add +1 to X/Y or -1/+1 to X/Y at random, like Snake)
-Ensure collisions are avoided with walls
-If you hit a wall, turn around
-
-
-     */
-    }
-
-    public void removeVehicle(String reg) {
-
-    /*
-Search listOfVehicles by key
-Remove it from HashMap
-Redraw Map
-
-
-     */
-    }
-
-    public void getVehiclesInRange(Location loc, int r) {
-
-    /*
-Find distance between Person and each Vehicle
-Loop though listOfVehicles,
-Compare distance between current location and vehicle location
-Push within 2r distance into array
-Return vehicles within the range
-
-
-     */
+    public static double distanceToCustomer(Customer customer, Vehicle vehicle) {
+        return Math.sqrt(Math.pow(vehicle.getX() - customer.getX(), 2) + Math.pow(vehicle.getY() - customer.getY(), 2));
     }
 
 }
-
-
-

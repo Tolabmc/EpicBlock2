@@ -9,56 +9,22 @@ public class Vehicle {
 
        */
 
-    private float driverRating;
+    private int driverRating;
     private String vehicleSize;
     private String vehicleBrand;
     private String reg;
-    private float defaultRating = 1;
+    private int defaultRating = 1;
 
     private int X;
 
-    public int getX() {
-        return X;
-    }
-
-    public void setX(int x) {
-        X = x;
-    }
-
-    private int Y;
-
-    public int getY(){
-        return Y;
-
-    }
 
     private double distanceToCustomer;
 
-    public void setY(int Y){
-        Y =Y;
-    }
+
 
     private char icon = 'V';
 
-    public float getDefaultRating() {
-        return defaultRating;
-    }
 
-    public void setDefaultRating(float defaultRating) {
-        this.defaultRating = defaultRating;
-    }
-
-    public double getDistanceToCustomer() {
-        return distanceToCustomer;
-    }
-
-    public void setDistanceToCustomer(double distanceToCustomer) {
-        this.distanceToCustomer = distanceToCustomer;
-    }
-
-    public void setIcon(char icon) {
-        this.icon = icon;
-    }
 
     public Vehicle(String reg, String vehicleSize, String vehicleBrand, int X, int Y) {
         this.driverName = driverName;
@@ -73,6 +39,38 @@ public class Vehicle {
     }
 
 
+    public int getX() {
+        return X;
+    }
+
+    public int setX(int x) {
+        X = x;
+        return x;
+    }
+
+    private int Y;
+
+    public int getY(){
+        return Y;
+
+    }
+    public int setY(int Y){
+        Y =Y;
+        return Y;
+    }
+
+    public double getDistanceToCustomer() {
+        return distanceToCustomer;
+    }
+
+    public void setDistanceToCustomer(double distanceToCustomer) {
+        this.distanceToCustomer = distanceToCustomer;
+    }
+
+    public char setIcon(char icon) {
+        this.icon = icon;
+        return icon;
+    }
 
     public char getIcon(){
         return icon;
@@ -104,11 +102,11 @@ public class Vehicle {
         this.driverName = driverName;
     }
 
-    public float getDriverRating() {
+    public int getDriverRating() {
         return driverRating;
     }
 
-    public void setDriverRating(float driverRating) {
+    public void setDriverRating(int driverRating) {
         this.driverRating = driverRating;
     }
 

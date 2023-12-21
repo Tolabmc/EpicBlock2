@@ -3,9 +3,22 @@ public class Taxi {
     private int x;
     private int y;
 
-    Taxi(int x, int y) {
+    private String reg;
+
+
+
+    Taxi(int x, int y, String reg) {
         this.x = x;
         this.y = y;
+        this.reg = reg;
+    }
+
+    public String getReg() {
+        return reg;
+    }
+
+    public void setReg(String reg) {
+        this.reg = reg;
     }
 
     int getX() {

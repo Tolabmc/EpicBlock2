@@ -20,8 +20,9 @@ public class Person {
         this.name = name;
     }
 
-    public void setIcon(char icon) {
+    public char setIcon(char icon) {
         this.icon = icon;
+        return icon;
     }
 
     public int getX() {
